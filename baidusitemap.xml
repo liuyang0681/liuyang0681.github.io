@@ -3,7 +3,29 @@
 
     
   <url>
-    <loc>http://yoursite.com/2019/03/31/name/</loc>
+    <loc>http://liuyang0681.github.io/2019/03/31/paper0331/</loc>
+    <lastmod>2019-03-31T10:28:00.613Z</lastmod>
+    <data>
+        <display>
+        <title>NBT-单细胞多组学研究成人脑部细胞</title>
+        <pubTime>2019-03-31T10:24:10.000Z</pubTime>
+        
+         
+           
+             
+              <breadCrumb title="文献追踪" url="http://liuyang0681.github.io/categories/%E6%96%87%E7%8C%AE%E8%BF%BD%E8%B8%AA/"/>
+          
+             
+              <breadCrumb title="paper" url="http://liuyang0681.github.io/categories/%E6%96%87%E7%8C%AE%E8%BF%BD%E8%B8%AA/paper/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+    
+  <url>
+    <loc>http://liuyang0681.github.io/2019/03/31/name/</loc>
     <lastmod>2019-03-31T09:35:19.736Z</lastmod>
     <data>
         <display>
@@ -17,13 +39,13 @@
          
            
              
-              <breadCrumb title="随笔" url="http://yoursite.com/categories/%E9%9A%8F%E7%AC%94/"/>
+              <breadCrumb title="随笔" url="http://liuyang0681.github.io/categories/%E9%9A%8F%E7%AC%94/"/>
           
              
-              <breadCrumb title="瞬间" url="http://yoursite.com/categories/%E9%9A%8F%E7%AC%94/%E7%9E%AC%E9%97%B4/"/>
+              <breadCrumb title="瞬间" url="http://liuyang0681.github.io/categories/%E9%9A%8F%E7%AC%94/%E7%9E%AC%E9%97%B4/"/>
           
              
-              <breadCrumb title="关于" url="http://yoursite.com/categories/%E9%9A%8F%E7%AC%94/%E7%9E%AC%E9%97%B4/%E5%85%B3%E4%BA%8E/"/>
+              <breadCrumb title="关于" url="http://liuyang0681.github.io/categories/%E9%9A%8F%E7%AC%94/%E7%9E%AC%E9%97%B4/%E5%85%B3%E4%BA%8E/"/>
           
         </display>
     </data>
@@ -31,21 +53,7 @@
 
     
   <url>
-    <loc>http://yoursite.com/tags/index.html</loc>
-    <lastmod>2019-03-31T09:05:46.797Z</lastmod>
-    <data>
-        <display>
-        <title>tags</title>
-        <pubTime>2019-03-31T09:01:14.000Z</pubTime>
-        
-         
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://yoursite.com/2019/03/31/hello-world/</loc>
+    <loc>http://liuyang0681.github.io/2019/03/31/hello-world/</loc>
     <lastmod>2019-03-30T17:59:05.597Z</lastmod>
     <data>
         <display>
