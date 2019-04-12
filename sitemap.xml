@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://liuyang0681.github.io/about/index.html</loc>
+    
+    <lastmod>2019-04-12T16:33:53.584Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://liuyang0681.github.io/categories/index.html</loc>
     
     <lastmod>2019-04-12T15:44:54.015Z</lastmod>
@@ -89,13 +96,6 @@
     <loc>http://liuyang0681.github.io/2019/03/31/paper0331/</loc>
     
     <lastmod>2019-03-31T10:28:00.613Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://liuyang0681.github.io/about/index.html</loc>
-    
-    <lastmod>2019-03-31T10:22:04.519Z</lastmod>
     
   </url>
   
