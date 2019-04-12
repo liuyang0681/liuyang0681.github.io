@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://liuyang0681.github.io/"/>
-  <updated>2019-04-09T15:23:45.358Z</updated>
+  <updated>2019-04-12T12:51:57.860Z</updated>
   <id>http://liuyang0681.github.io/</id>
   
   <author>
@@ -15,6 +15,29 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>生信类捕获信号peak图的美化进阶之路</title>
+    <link href="http://liuyang0681.github.io/2019/04/12/paper0412/"/>
+    <id>http://liuyang0681.github.io/2019/04/12/paper0412/</id>
+    <published>2019-04-12T12:49:57.000Z</published>
+    <updated>2019-04-12T12:51:57.860Z</updated>
+    
+    <content type="html"><![CDATA[<p>&emsp;&emsp;对于评估单细胞捕获率，通常需要结合群体细胞技术，在同一区域查看单细胞信号捕获情况，直接上图了解一下。<br><img src="https://upload-images.jianshu.io/upload_images/6732709-a7fe5c6892361db0.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="准发表级图片"><br>&emsp;&emsp;对于这种图如何来做的呢？接下来将一步一步复现图片生成的过程。<br>&emsp;&emsp;首先需要选取合适的选区，比如在管家基因区域，或者你研究的这类细胞比较高开放或者高信号富集的区域。<br>&emsp;&emsp;选择好对应的区域，按照选择区域的宽度，设定合适的窗口大小对出图的视觉效果很重要，对于200kb的区域可以选择600-800bp窗口较适宜。<br>1、简单粗暴生成固定窗口的区域：<br><figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">seq -w <span class="number">600000</span> <span class="number">600</span> <span class="number">800000</span> |awk '&#123;print <span class="string">"chr1"</span><span class="string">"<span class="subst">\t</span>"</span>$<span class="number">1</span><span class="string">"<span class="subst">\t</span>"</span>$<span class="number">1</span>+<span class="number">559</span><span class="string">"<span class="subst">\t</span>"</span><span class="string">"bin_"</span>NR<span class="string">"<span class="subst">\t</span>"</span><span class="string">"600"</span>&#125;' &gt; region_bin.bed</span><br></pre></td></tr></table></figure></p><p>2、利用bedrolls 工具可以对区域窗口检索多少reads覆盖在这个区域。<br><figure class="highlight taggerscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bedtools intersect -a region_bin.bed -b read1sample.bed -c -bed |awk '&#123;print <span class="symbol">\$</span>4<span class="symbol">\"</span><span class="symbol">\\</span><span class="symbol">\t</span><span class="symbol">\"</span><span class="symbol">\$</span>5<span class="symbol">\"</span><span class="symbol">\\</span><span class="symbol">\t</span><span class="symbol">\"</span><span class="symbol">\$</span>6&#125;' &gt; read1sample_count.bed</span><br></pre></td></tr></table></figure></p><p>3、将每个cell对应的区域count情况合并成一个矩阵<br><figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">paste</span> 工具或者perl 脚本可以轻松实现，针对相同列索引，多行合并</span><br></pre></td></tr></table></figure></p><p>4、利用Rpheatmap包可以轻松产生信号图，但默认情况图片较差，需要进一步的调整，下边为个性化R代码实现<br><figure class="highlight maxima"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">library(pheatmap)</span><br><span class="line"><span class="built_in">region</span>&lt;- <span class="built_in">read</span>.table(file = <span class="string">"count.xls"</span>,header = T)</span><br><span class="line"><span class="built_in">region</span>&lt;- <span class="built_in">region</span>[order(<span class="built_in">region</span>[,<span class="number">1</span>]),]</span><br><span class="line">rownames(<span class="built_in">region</span>)&lt;- <span class="built_in">region</span>[,<span class="number">1</span>]</span><br><span class="line"><span class="built_in">region</span>&lt;-<span class="built_in">region</span>[,-<span class="number">1</span>]</span><br><span class="line"><span class="built_in">region</span>&lt;-<span class="built_in">region</span>[,-<span class="number">1</span>]</span><br><span class="line"><span class="built_in">region</span>&lt;- t(<span class="built_in">region</span>)</span><br><span class="line"><span class="built_in">region</span>[<span class="built_in">region</span>&gt;<span class="number">2</span>]=<span class="number">2</span></span><br><span class="line">bk &lt;-seq(<span class="number">0</span>,<span class="number">3</span>,by=<span class="number">1</span>)</span><br><span class="line">pheatmap(<span class="built_in">region</span>,cluster_cols = FALSE,cluster_rows = FALSE,</span><br><span class="line">         <span class="built_in">scale</span> = <span class="string">"none"</span>,</span><br><span class="line">         <span class="built_in">color</span> = colorRampPalette(colors = c(<span class="string">"white"</span>,<span class="string">"red"</span>))(<span class="built_in">length</span>(bk)),</span><br><span class="line">         legend_breaks=seq(<span class="number">0</span>,<span class="number">3</span>,<span class="number">1</span>),</span><br><span class="line">         breaks=bk)</span><br></pre></td></tr></table></figure></p><p>运行完这个就可以生成此类草图，这是真实的reads在信号区域的富集情况。<br><img src="https://upload-images.jianshu.io/upload_images/6732709-e8091700602e1ea5.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="信号草图"></p><p>其次在IGV上调取个性化区域，并将该区域保存为svg格式，便于后序在AI上编辑合并。<br><img src="https://upload-images.jianshu.io/upload_images/6732709-405d7f180c62af01.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="IGV截图"><br>AI编辑中：<br><img src="https://upload-images.jianshu.io/upload_images/6732709-2cb85d18f19c6fd7.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="AI 编辑中"><br>两部分初步合并：<br><img src="https://upload-images.jianshu.io/upload_images/6732709-ca8f276ef127d305.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="初步合并"><br>逐步规范化：<br><img src="https://upload-images.jianshu.io/upload_images/6732709-63c46538a6669760.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="逐步规范化"><br>收尾完工：<br><img src="https://upload-images.jianshu.io/upload_images/6732709-a15e6d11812d7206.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="逐步收尾完工"><br>AI对于后续的图片处理至关重要，图片规整美化是一个细致性的工作，没有最好，只有更好。</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;&amp;emsp;&amp;emsp;对于评估单细胞捕获率，通常需要结合群体细胞技术，在同一区域查看单细胞信号捕获情况，直接上图了解一下。&lt;br&gt;&lt;img src=&quot;https://upload-images.jianshu.io/upload_images/6732709-a7fe5c
+      
+    
+    </summary>
+    
+      <category term="生信分析" scheme="http://liuyang0681.github.io/categories/%E7%94%9F%E4%BF%A1%E5%88%86%E6%9E%90/"/>
+    
+    
+  </entry>
   
   <entry>
     <title>机器学习入门概述</title>
