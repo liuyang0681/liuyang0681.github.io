@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://liuyang0681.github.io/"/>
-  <updated>2019-04-12T12:51:57.860Z</updated>
+  <updated>2019-04-15T14:31:43.861Z</updated>
   <id>http://liuyang0681.github.io/</id>
   
   <author>
@@ -15,6 +15,29 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>二次启用Endnote工具应对文献增量管理</title>
+    <link href="http://liuyang0681.github.io/2019/04/15/paper0415/"/>
+    <id>http://liuyang0681.github.io/2019/04/15/paper0415/</id>
+    <published>2019-04-15T14:28:14.000Z</published>
+    <updated>2019-04-15T14:31:43.861Z</updated>
+    
+    <content type="html"><![CDATA[<h5 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h5><p>&emsp;&emsp;工欲善其事必先利其器，老祖宗留下的话大多数都是经典。之前看文献不多，手动整理文献已经满足条件。上次系统利用专门的文献管理软件endnote还是写本科毕业论文的时候，用来插入参考文献。其实endnote的更强大的功能是文献管理，插入文献只是其中的一小部分。随着阅读文献的越来越多，手动管理渐渐无法满足条件，重新捡起老工具利用新功能管理文献，并作常用的功能介绍。<br><img src="https://upload-images.jianshu.io/upload_images/6732709-5ba170d0314b39f9.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="endnote9"><br>&emsp;&emsp;我选用的是MAC版本的Endnote9，傻瓜式安装完成开始使用，构建自己的library库。<br><img src="https://upload-images.jianshu.io/upload_images/6732709-5356c999a584b6cd.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="endnote界面"></p><h5 id="数据库下载"><a href="#数据库下载" class="headerlink" title="数据库下载"></a>数据库下载</h5><p>&emsp;&emsp;在数据库中下载文献索引，并导入endnote。比如在NCBI中查找single cell ATAC-seq关键词，检索到多个相关文献。<br><img src="https://upload-images.jianshu.io/upload_images/6732709-1efbb1d41dbded63.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="NCBI检索界面"><br>&emsp;&emsp;点击界面中的Send to，在弹出的菜单中点击File，之后在Format菜单中点击MEDLINE，再点击Create File。这样PubMed就会自动下载一个文本文件到本地电脑，文件默认名字是pubmed_results.txt。这里需要注意的是，在Format中一定要选择Medline，千万不要选其它格式。<br><img src="https://upload-images.jianshu.io/upload_images/6732709-4e1f17de2bc3fe25.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="导出格式选择"><br>&emsp;&emsp;先点击File Import 后面那个options，选中刚才从PubMed中下载下来的txt文件。记住在Import Option中一定要选择PubMed (NLM)，有时这个地方默认的不是PubMed(NLM)，则需要在下拉菜单中找到Other Filters，之后再在众多的选项中找到PubMed(NLM)<br><img src="https://upload-images.jianshu.io/upload_images/6732709-88de65d02599e9a2.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="导入选项配置"><br><img src="https://upload-images.jianshu.io/upload_images/6732709-c3f54af604c7b4ce.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="导入格式选择"><br>&emsp;&emsp;导入后全选所有信息，然后右键点击find full text，他就可以自动获取全文，比较耗时，可以吃个零食，喝杯咖啡，静候完成。当然对于非开放阅读期刊文章可能会获取不到，需要手动在scihub上获取然后手动添加到索引中。<br><img src="https://upload-images.jianshu.io/upload_images/6732709-9b2bead5faf3e632.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="自动获取原文"><br>&emsp;&emsp;Encode另一个的优点是对中文文献的友好支持，在中国知网可以下载到endnote对应的格式信息，方便后续插入文献。</p><h5 id="PDF文献导入"><a href="#PDF文献导入" class="headerlink" title="PDF文献导入"></a>PDF文献导入</h5><p>&emsp;&emsp;也许你已经下载了很多的文献，这些可以直接导入到Endnote的，但是你或许会遇到一些文献导入不能自动识别引用信息，需要手动处理。<br>选中不能识别的文献，右键选择编辑参考材料。<br><img src="https://upload-images.jianshu.io/upload_images/6732709-079ea41c1a9c9f35.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="输入网上查询到的DIO"><br>&emsp;&emsp;回到原来界面，然后更新参考材料即可.<br><img src="https://upload-images.jianshu.io/upload_images/6732709-7be3e2539df57081.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="更新界面"><br>&emsp;&emsp;还有一个比较实用的文献阅读管理技巧，可以根据个人情况标注文献的重要等级，以便后续重复阅读，方便查找。<br><img src="https://upload-images.jianshu.io/upload_images/6732709-4d48b4fa1af32b14.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="星标排序"></p><h6 id="参考材料："><a href="#参考材料：" class="headerlink" title="参考材料："></a>参考材料：</h6><p><a href="http://blog.sciencenet.cn/blog-475824-877704.html" target="_blank" rel="noopener">http://blog.sciencenet.cn/blog-475824-877704.html</a></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h5 id=&quot;简介&quot;&gt;&lt;a href=&quot;#简介&quot; class=&quot;headerlink&quot; title=&quot;简介&quot;&gt;&lt;/a&gt;简介&lt;/h5&gt;&lt;p&gt;&amp;emsp;&amp;emsp;工欲善其事必先利其器，老祖宗留下的话大多数都是经典。之前看文献不多，手动整理文献已经满足条件。上次系统利用专门的文献
+      
+    
+    </summary>
+    
+      <category term="他山之石" scheme="http://liuyang0681.github.io/categories/%E4%BB%96%E5%B1%B1%E4%B9%8B%E7%9F%B3/"/>
+    
+    
+  </entry>
   
   <entry>
     <title>生信类捕获信号peak图的美化进阶之路</title>
