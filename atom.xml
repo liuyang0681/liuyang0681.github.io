@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://liuyang0681.github.io/"/>
-  <updated>2019-04-25T07:56:39.239Z</updated>
+  <updated>2019-04-26T14:23:04.136Z</updated>
   <id>http://liuyang0681.github.io/</id>
   
   <author>
@@ -15,6 +15,29 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>bioRxiv-高通量单细胞染色质图谱研究人体免疫细胞发育和肿瘤内T细胞衰竭</title>
+    <link href="http://liuyang0681.github.io/2019/04/26/bioRxiv-%E9%AB%98%E9%80%9A%E9%87%8F%E5%8D%95%E7%BB%86%E8%83%9E%E6%9F%93%E8%89%B2%E8%B4%A8%E5%9B%BE%E8%B0%B1%E7%A0%94%E7%A9%B6%E4%BA%BA%E4%BD%93%E5%85%8D%E7%96%AB%E7%BB%86%E8%83%9E%E5%8F%91%E8%82%B2%E5%92%8C%E8%82%BF%E7%98%A4%E5%86%85T%E7%BB%86%E8%83%9E%E8%A1%B0%E7%AB%AD/"/>
+    <id>http://liuyang0681.github.io/2019/04/26/bioRxiv-高通量单细胞染色质图谱研究人体免疫细胞发育和肿瘤内T细胞衰竭/</id>
+    <published>2019-04-26T14:19:07.000Z</published>
+    <updated>2019-04-26T14:23:04.136Z</updated>
+    
+    <content type="html"><![CDATA[<figure class="highlight excel"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">标题：Massively parallel single-<span class="built_in">cell</span> chromatin landscapes of human immune <span class="built_in">cell</span> development <span class="built_in">and</span> intratumoral <span class="built_in">T</span> <span class="built_in">cell</span> exhaustion</span><br><span class="line">期刊：biorxiv</span><br><span class="line">日期：April <span class="number">18</span>, <span class="number">2019</span></span><br></pre></td></tr></table></figure><p>&emsp;&emsp;单细胞领域伴随着单细胞分离建库等技术的发展，不少优质实验室也产出了大量的高水平文章，对于新型的ATAC-seq技术（鉴定染色质可接近性的方法），目前也广泛应用在单细胞领域，对研究单细胞水平的调控抑制性具有重要的价值。之前的文章基于多重组合index的方式，pool-split 方法实现单细胞建库，10Xgenome公司基于droplet,液滴微流控的方法，将单细胞ATAC-seq实现了商业化，这篇预印版文章也是10XATAC-seq商业化以来联合业内大牛首篇文章，预期可以发表在CNS级别杂志上。<br>&emsp;&emsp;通讯作者为ATAC-seq发明人<strong>William J.Greenleaf</strong>和<strong>Howard Y .Chang</strong>以及10Xgenome公司的<strong>Grace X.Y.Zheng</strong><br><img src="https://upload-images.jianshu.io/upload_images/6732709-3fc76dbe5dfc74b6.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="作者情况"><br>&emsp;&emsp;文章利用10X公司微流控系统实现高通量单细胞ATAC-seq建库测序。微流控系统由标记特定barcode的磁柱，混有Tn5转座酶细胞核悬浮液，油滴通过微流控系统使每个细胞核，一个磁珠与油滴形成一个整体油胞体，实现单细胞分离建库，后续经过扩增破乳等过程完成上机测序前的步骤。10X同时提供端对端的数据分析流程，也提供建议操作的可视化操作软件，供没有生信背景的老师直观处理数据。文章又对数据做了多步质控，通过与群体ATAC-seq及merge多个单细胞数据信号图做比较，单细胞确实在相应的信号集中区域有read富集。这个图的做法我已经分享过<a href="https://liuyang0681.github.io/2019/04/12/paper0412/">生信类捕获信号peak图的美化进阶之路</a>。文章也做了在TSS区域富集的比例，相关性分析，通过利用GM2878和A20两种细胞做系统的双胞率评估。<br><img src="https://upload-images.jianshu.io/upload_images/6732709-b3fe973f4724b285.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="技术路线质控"><br>&emsp;&emsp;文章基于William J.Greenleaf &amp;&amp; Howard Y .Chang实验室对骨髓造血细胞分化发育领域研究积淀，采用造血干细胞为研究对象，通过微流控建库测序通过质控，共获得<strong><em>61,806</em></strong>个高质量的单细胞数据。</p><p><img src="https://upload-images.jianshu.io/upload_images/6732709-746dc2d757c1368d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="样本类型"><br>&emsp;&emsp;利用LSI方法将降维，SNN 聚类，UMAP可视化，共获得31个细胞群。基于三种方式分类，1）开放区域peak；2）基因活性值；3)转录因子情况。分别用这三种方式研究顺势调控原件与靶基因的关系。<br><img src="https://upload-images.jianshu.io/upload_images/6732709-eee2d15310d77189.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="三种方法研究"><br>&emsp;&emsp;免疫细胞谱系调节轨迹研究。文章尝试利用ATAC-seq 数据去重构细胞发育谱系，利用B细胞作为例子测试，在聚类结果中显示了前体B细胞，记忆B细胞.接下来利用这种单细胞伪时间来识别阶段特异性活动 血浆B细胞分化过程中的顺式元件和反式因子。分析约10,000个在整个轨迹上具有动态可访问性模式的特定顺式调控元件及在B细胞发育的每个阶段的几个已知调节剂附近的动态调节元件。确定了16个子簇，并且将分类的scATAC-seq谱投影到从头定义的簇上，揭示了祖细胞之间的调节关系和标记定义的状态中的显着异质性。<br><img src="https://upload-images.jianshu.io/upload_images/6732709-c6afc336b5b834ac.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="发育轨迹"><br>&emsp;&emsp;肿瘤内免疫单细胞染色质图谱。对来自5名患者的PD-1阻断前后的连续肿瘤活检组织（pembrolizumab）进行了scATAC-seq，另外还对2名患者进行了治疗后活组织检查（共7例患者; 14个时间点采样）。为了能够进行治疗前和治疗后的细胞比较, 对每个患者进行了活检, 并在可能的情况下, 在每个时间点以相同的方式对细胞进行采样，总共生成了<strong>37, 818</strong>个单细胞高质量的scATAC-seq 数据。<br><img src="https://upload-images.jianshu.io/upload_images/6732709-430f1f251c603a27.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="BCC"><br>&emsp;&emsp;PD-1阻断后T细胞衰竭的表观遗传景象。文章专注于 CD8 + TEx 细胞, 之前的研究表明, 这一群体是丰富的克隆扩大肿瘤特异性 T 细胞。分析了 TEx 细胞中的顺式调节图谱： (1) 测量 TEx 细胞中染色质可及性的全局变化, (2) 提名可能调节 tex 特异性抑制受体表达的单个顺式元件。在所有 T 细胞状态中, 确定了 35, 147个只能在单个类群中开放的顺式元件。最后研究了 TEx 和 Tfh 细胞之间的表观遗传关系。文章结果绘制了人类体内 TEx 细胞的表观遗传景观图, 并表明慢性 TCR 信号在减少阻断后推动了 TEx 和 Tfh 细胞的共同调控机制。<br><img src="https://upload-images.jianshu.io/upload_images/6732709-b1b764afde2e049b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="T细胞表观调节"></p><h6 id="参考材料："><a href="#参考材料：" class="headerlink" title="参考材料："></a>参考材料：</h6><p><a href="https://www.biorxiv.org/content/10.1101/610550v1" target="_blank" rel="noopener">https://www.biorxiv.org/content/10.1101/610550v1</a></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;figure class=&quot;highlight excel&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class
+      
+    
+    </summary>
+    
+      <category term="文献追踪" scheme="http://liuyang0681.github.io/categories/%E6%96%87%E7%8C%AE%E8%BF%BD%E8%B8%AA/"/>
+    
+    
+  </entry>
   
   <entry>
     <title>seqkit-fa&amp;fq文件处理利器</title>
