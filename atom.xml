@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://liuyang0681.github.io/"/>
-  <updated>2019-04-28T15:03:09.498Z</updated>
+  <updated>2019-05-14T09:28:05.652Z</updated>
   <id>http://liuyang0681.github.io/</id>
   
   <author>
@@ -15,6 +15,29 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>CR-单细胞水平研究人类睾丸细胞图谱</title>
+    <link href="http://liuyang0681.github.io/2019/05/14/CR-%E5%8D%95%E7%BB%86%E8%83%9E%E6%B0%B4%E5%B9%B3%E7%A0%94%E7%A9%B6%E4%BA%BA%E7%B1%BB%E7%9D%BE%E4%B8%B8%E7%BB%86%E8%83%9E%E5%9B%BE%E8%B0%B1/"/>
+    <id>http://liuyang0681.github.io/2019/05/14/CR-单细胞水平研究人类睾丸细胞图谱/</id>
+    <published>2019-05-14T09:26:39.000Z</published>
+    <updated>2019-05-14T09:28:05.652Z</updated>
+    
+    <content type="html"><![CDATA[<figure class="highlight excel"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">标题：The Neonatal <span class="built_in">and</span> Adult Human Testis Defined at the Single-<span class="built_in">Cell</span> Level</span><br><span class="line">期刊：<span class="built_in">Cell</span> reports</span><br><span class="line">日期：FEBRUARY <span class="number">05</span>, <span class="number">2019</span></span><br></pre></td></tr></table></figure><p>&emsp;&emsp;这篇文章算是比较中规中矩的单细胞研究某一器官图谱的文章形式，文章的亮点主要包括1）通过scRNA-seq分析定义新生儿和成人睾丸细胞亚群；2）新生儿包含原始生殖细胞和SSC样细胞；3）定义了具有不同标记的许多成体精原细胞状态；4）定义了新生儿和成人睾丸“生态位”细胞和因子。</p><p><img src="https://upload-images.jianshu.io/upload_images/6732709-a691d8ecf4c69416.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="文章框架"><br>&emsp;&emsp;文章通讯作者Miles Wilkinson, Ph.D.加利福尼亚大学圣地亚哥分校妇产科和生殖科学系教授，研究领域包括：</p><ul><li>RNA</li><li>Stem cell biology</li><li>Epigenetics</li><li>Reproductive biology</li><li>Developmental biology</li><li>Neurobiology </li><li>Cancer<br>等方向，集中在基因调控回路对正常发育和疾病的影响。<br><img src="https://upload-images.jianshu.io/upload_images/6732709-14818d015f87375c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="PI"></li></ul><p>&emsp;&emsp;文章使用10X公司scRNA-seq来分析成人新生儿睾丸中的所有细胞，来定义所有主要的精子和体细胞亚群。通过比较新生儿和成人睾丸细胞的基因表达变化情况，描述了精子发生的时间序列等，整体的结果描述了人类睾丸组织精子细胞及体细胞的细胞发育图谱。<br><img src="https://upload-images.jianshu.io/upload_images/6732709-43a0e410083abf88.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="单细胞分群"><br>文章分析很常规，原始数据利用10X公司提供的cellranger流程处理，得到matrix，后续分析采用Seurat包完成质控，降维聚类等分析，睾丸单细胞分群情况，共分为7群，其中比较大的SPG群，后续又对这个细胞群进行亚群分析，鉴定发现了一些新的细胞亚型。<br><img src="https://upload-images.jianshu.io/upload_images/6732709-1ec4736bba5b2531.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="亚群"><br>对于分化发育等细胞，可以利用monocle包进行时间序列分析。根据基因表达情况推测细胞当前所处的每个分化阶段位置。<br><img src="https://upload-images.jianshu.io/upload_images/6732709-4308e2c25560a0a0.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="时序分析"><br>鉴定描述新发现的SPG细胞亚型<br><img src="https://upload-images.jianshu.io/upload_images/6732709-e5953dd173fdf9a2.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="鉴定描述新发现的SPG细胞亚型"><br>鉴定描述新发现的SPG细胞标记<br><img src="https://upload-images.jianshu.io/upload_images/6732709-16365fbca6086fbb.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="鉴定描述新发现的SPG细胞标记"><br>人类睾丸中体细胞群的表征<br><img src="https://upload-images.jianshu.io/upload_images/6732709-a45603798c2dfcd8.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="人类睾丸中体细胞群的表征"><br>人类睾丸中的受体 - 配体信号相互作用<br><img src="https://upload-images.jianshu.io/upload_images/6732709-8da565d7ab76fb32.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="人类睾丸中的受体 - 配体信号相互作用"><br>人类雄性配子发生模型和新生儿信号<br><img src="https://upload-images.jianshu.io/upload_images/6732709-060e3a4a6386fef8.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="人类雄性配子发生模型和新生儿信号"></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;figure class=&quot;highlight excel&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class
+      
+    
+    </summary>
+    
+      <category term="文献追踪" scheme="http://liuyang0681.github.io/categories/%E6%96%87%E7%8C%AE%E8%BF%BD%E8%B8%AA/"/>
+    
+    
+  </entry>
   
   <entry>
     <title>R-按照行名或列名删除对应的行列</title>
