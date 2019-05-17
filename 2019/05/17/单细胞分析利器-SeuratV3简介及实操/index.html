@@ -1,0 +1,857 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta name="google-site-verification" content="G086OtDfg3zyMNCUZ4n9po1t2K6PbweKCifJcGI8awA">
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="暗之洋光" type="application/atom+xml">
+
+
+
+
+
+
+<meta name="description" content="Seurat简介&amp;emsp;&amp;emsp;Seurat—几乎是当前单细胞RNA-seq分析领域的不可或缺的工具，特别是基于10X公司的cellrange流程得出的结果，可以方便的对接到Seurat工具中进行后续处理，简直是带给迷茫在单细胞数据荒漠中小白的一眼清泉，相对全面的功能，简洁的操作命令，如丝般顺滑。 更新记录&amp;emsp;&amp;emsp;Seurat目前最新版为V3，第一版是为处理空间转录组而设计">
+<meta property="og:type" content="article">
+<meta property="og:title" content="单细胞分析利器-SeuratV3简介及实操">
+<meta property="og:url" content="http://liuyang0681.github.io/2019/05/17/单细胞分析利器-SeuratV3简介及实操/index.html">
+<meta property="og:site_name" content="暗之洋光">
+<meta property="og:description" content="Seurat简介&amp;emsp;&amp;emsp;Seurat—几乎是当前单细胞RNA-seq分析领域的不可或缺的工具，特别是基于10X公司的cellrange流程得出的结果，可以方便的对接到Seurat工具中进行后续处理，简直是带给迷茫在单细胞数据荒漠中小白的一眼清泉，相对全面的功能，简洁的操作命令，如丝般顺滑。 更新记录&amp;emsp;&amp;emsp;Seurat目前最新版为V3，第一版是为处理空间转录组而设计">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/6732709-064defa79c5a01a7.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/6732709-69e47ddfed80a2c1.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/6732709-3107dd9f6805fa2b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/6732709-c7818cf94b25d522.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/6732709-90db5c2803cde678.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/6732709-9a3d81a11131517e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/6732709-59f03bf39abda438.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/6732709-1e9de3d631af043c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/6732709-7e6116c15df5c490.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/6732709-d5764633333f1552.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/6732709-326cb37f3fd9475a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/6732709-bb82ed2df2373dcd.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2019-05-17T15:36:08.246Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="单细胞分析利器-SeuratV3简介及实操">
+<meta name="twitter:description" content="Seurat简介&amp;emsp;&amp;emsp;Seurat—几乎是当前单细胞RNA-seq分析领域的不可或缺的工具，特别是基于10X公司的cellrange流程得出的结果，可以方便的对接到Seurat工具中进行后续处理，简直是带给迷茫在单细胞数据荒漠中小白的一眼清泉，相对全面的功能，简洁的操作命令，如丝般顺滑。 更新记录&amp;emsp;&amp;emsp;Seurat目前最新版为V3，第一版是为处理空间转录组而设计">
+<meta name="twitter:image" content="https://upload-images.jianshu.io/upload_images/6732709-064defa79c5a01a7.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://liuyang0681.github.io/2019/05/17/单细胞分析利器-SeuratV3简介及实操/">
+
+
+
+
+
+  <title>单细胞分析利器-SeuratV3简介及实操 | 暗之洋光</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+   
+      <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">暗之洋光</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-sitemap">
+          <a href="/sitemap.xml" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br>
+            
+            站点地图
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://liuyang0681.github.io/2019/05/17/单细胞分析利器-SeuratV3简介及实操/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="浏阳（Yang)">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/modelface.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="暗之洋光">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">单细胞分析利器-SeuratV3简介及实操</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-17T23:31:13+08:00">
+                2019-05-17
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/生信分析/" itemprop="url" rel="index">
+                    <span itemprop="name">生信分析</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h4 id="Seurat简介"><a href="#Seurat简介" class="headerlink" title="Seurat简介"></a>Seurat简介</h4><p>&emsp;&emsp;<a href="https://satijalab.org/seurat/" target="_blank" rel="noopener">Seurat</a>—几乎是当前单细胞RNA-seq分析领域的不可或缺的工具，特别是基于10X公司的cellrange流程得出的结果，可以方便的对接到Seurat工具中进行后续处理，简直是带给迷茫在单细胞数据荒漠中小白的一眼清泉，相对全面的功能，简洁的操作命令，如丝般顺滑。<br><img src="https://upload-images.jianshu.io/upload_images/6732709-064defa79c5a01a7.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="seurat官网界面"></p>
+<h4 id="更新记录"><a href="#更新记录" class="headerlink" title="更新记录"></a>更新记录</h4><p>&emsp;&emsp;Seurat目前最新版为V3，第一版是为处理空间转录组而设计，第二版针对基因droplet的单细胞技术而开发的用于单细胞质控，降维，聚类，鉴定细胞类型marker等多重功能，目前更新的第三版可以整合多组学，多批次，多实验方法的数据，把握了后续数据分析需要多组学整合的热点策略，符合下一步分析思路更全面，生物学解释更透彻的科研需求。<br>以下为Seurat更新的记录：<br><strong>2019年4月16日</strong>发布3.0版<br><strong>2018年11月2日</strong>版本3.0 alpha发布</p>
+<ul>
+<li>发布的预印本描述了在单细胞数据集中识别“锚点”的新方法<br><strong>2018年3月23日</strong> 2.3版本发布</li>
+<li>提高速度和内存效率</li>
+<li>用于分析来自Microwell-seq Mouse Cell Atlas数据集的~250,000个细胞的新视图<br><strong>2018年1月10日：</strong> 2.2版本发布</li>
+<li>支持多数据集对齐</li>
+<li>评估对齐性能的新方法<br><strong>2017年10月16日：</strong> 2.1版发布</li>
+<li>支持多模式单细胞数据</li>
+<li>支持用于差异表达式测试的MAST和DESeq2包<br><strong>2017年7月26日：</strong> 2.0版本发布</li>
+<li>发布预印本用于scRNA-seq数据集的综合分析</li>
+<li>数据集集成，可视化和探索的新方法</li>
+<li>对代码库进行重大重组，以强调清晰度和清晰的文档<br><strong>2016年10月4日：</strong> 1.4版本发布</li>
+<li>为UMI计数数据添加了负二项回归和差分表达式测试的方法</li>
+<li>合并和下采样Seurat对象的新方法<br><strong>2016年8月22日：</strong> 1.3版本发布</li>
+<li>改进的聚类方法 - 有关详细信息，请参阅FAQ</li>
+<li>所有函数都支持稀疏矩阵</li>
+<li>消除不需要的变异来源的方法</li>
+<li>一致的函数名称</li>
+<li>更新的可视化<br><strong>2015年5月21日：</strong> <a href="http://www.cell.com/cell/abstract/S0092-8674(15" target="_blank" rel="noopener">Drop-Seq手稿</a>00549-8)发布。版本1.2发布</li>
+<li>增加了对光谱t-SNE（非线性降维）和密度聚类的支持</li>
+<li>新的可视化 - 包括pcHeatmap，dot.plot和feature.plot</li>
+<li>扩展包文档，减少导入包负担</li>
+<li>Seurat代码现在托管在GitHub上，可以通过devtools包轻松安装</li>
+<li>小错误修复<br><strong>2015年4月13日：</strong> <a href="http://www.nature.com/nbt/journal/vaop/ncurrent/full/nbt.3192.html" target="_blank" rel="noopener">空间映射手稿</a>发布。版本1.1发布<h4 id="Seurat安装"><a href="#Seurat安装" class="headerlink" title="Seurat安装"></a>Seurat安装</h4>直接在CRAN加载安装<figure class="highlight delphi"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"># Enter commands <span class="keyword">in</span> R (<span class="keyword">or</span> R studio, <span class="keyword">if</span> installed)</span><br><span class="line">install.packages(<span class="string">'Seurat'</span>)</span><br><span class="line"><span class="keyword">library</span>(Seurat)</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>同时SeuratV3支持使用UMAP算法进行降维聚类可视化，需要配置对应的pythonUMAP环境，方可执行UMAP对应功能。</p>
+<h4 id="Seurat分析单细胞RNA-seq数据"><a href="#Seurat分析单细胞RNA-seq数据" class="headerlink" title="Seurat分析单细胞RNA-seq数据"></a>Seurat分析单细胞RNA-seq数据</h4><p>官网提供了基于10X公司的PBMC样本的数据作为示范；<br>首先读入实例数据，利用Read10X函数读取<a href="https://support.10xgenomics.com/single-cell-gene-expression/software/pipelines/latest/what-is-cell-ranger" target="_blank" rel="noopener">cellranger</a>流程的输出文件，返回唯一的分子识别（UMI）计数矩阵。该矩阵中的值表示在每个细胞（列）中检测到的每个特征（即基因;行）的分子数。然后使用计数矩阵来创建一个<code>Seurat</code>对象。该对象充当容器，其包含单细胞数据集的数据（如计数矩阵）和分析（如PCA或聚类结果）<br><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">library(dplyr)</span><br><span class="line">library(<span class="type">Seurat</span>)</span><br><span class="line">setwd(<span class="string">"/Users/liuyang/Downloads/03project/02scRNA/10X_Seurat"</span>)</span><br><span class="line">rm(list = ls())</span><br><span class="line"></span><br><span class="line"># <span class="type">Load</span> the <span class="type">PBMC</span> dataset</span><br><span class="line">pbmc.data &lt;- <span class="type">Read10X</span>(data.dir = <span class="string">"/Users/liuyang/Downloads/03project/02scRNA/10X_Seurat/filtered_gene_bc_matrices/hg19/"</span>)</span><br><span class="line"># <span class="type">Initialize</span> the <span class="type">Seurat</span> <span class="class"><span class="keyword">object</span> <span class="keyword">with</span> <span class="title">the</span> <span class="title">raw</span> (<span class="params">non-normalized data</span>).</span></span><br><span class="line"><span class="class"><span class="title">pbmc</span> <span class="title">&lt;-</span> <span class="title">CreateSeuratObject</span>(<span class="params">counts = pbmc.data, project = "pbmc3k", min.cells = 3, min.features = 200</span>)</span></span><br><span class="line"><span class="class"><span class="title">pbmc</span></span></span><br></pre></td></tr></table></figure></p>
+<p> 标准的预处理工作流程基于QC指标，数据标准化和缩放以及高度可变特征的检测来选择和过滤细胞。  </p>
+<h6 id="QC并选择细胞进行进一步分析"><a href="#QC并选择细胞进行进一步分析" class="headerlink" title="QC并选择细胞进行进一步分析"></a>QC并选择细胞进行进一步分析</h6><p>Seurat允许用户根据自己定义的标准轻松探索QC指标和过滤单元格。<a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4758103/" target="_blank" rel="noopener">常用</a>的一些QC指标包括</p>
+<ul>
+<li>在每个细胞中检测到的独特基因的数量。</li>
+<li>低质量细胞或空液滴通常只有很少的基因</li>
+<li>细胞双峰或多重峰可能表现出异常高的基因计数</li>
+<li>同样，细胞内检测到的分子总数（与独特基因强烈相关）</li>
+<li>映射到线粒体基因组的读数百分比（对于已经组装到染色体水平或有线粒体基因组的样本）</li>
+<li>低质量/垂死细胞通常表现出广泛的线粒体污染</li>
+<li>我们使用<code>PercentageFeatureSet</code>函数计算线粒体QC指标，该函数计算源自一组特征的计数百分比</li>
+<li>我们使用所有基因<code>MT-</code>集作为一组线粒体基因<figure class="highlight nix"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">pbmc[[<span class="string">"percent.mt"</span>]] &lt;- PercentageFeatureSet(<span class="attr">object</span> = pbmc, <span class="attr">pattern</span> = <span class="string">"^MT-"</span>)</span><br><span class="line">VlnPlot(<span class="attr">object</span> = pbmc, <span class="attr">features</span> = c(<span class="string">"nFeature_RNA"</span>, <span class="string">"nCount_RNA"</span>, <span class="string">"percent.mt"</span>), <span class="attr">ncol</span> = <span class="number">3</span>)</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p><img src="https://upload-images.jianshu.io/upload_images/6732709-69e47ddfed80a2c1.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="质控"><br><figure class="highlight nix"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># FeatureScatter is typically used to visualize feature-feature relationships, but can be used for anything calculated by</span></span><br><span class="line"><span class="comment"># the object, i.e. columns in object metadata, PC scores etc.</span></span><br><span class="line"></span><br><span class="line">plot1 &lt;- FeatureScatter(<span class="attr">object</span> = pbmc, <span class="attr">feature1</span> = <span class="string">"nCount_RNA"</span>, <span class="attr">feature2</span> = <span class="string">"percent.mt"</span>)</span><br><span class="line">plot2 &lt;- FeatureScatter(<span class="attr">object</span> = pbmc, <span class="attr">feature1</span> = <span class="string">"nCount_RNA"</span>, <span class="attr">feature2</span> = <span class="string">"nFeature_RNA"</span>)</span><br><span class="line">CombinePlots(<span class="attr">plots</span> = list(plot1, plot2))</span><br></pre></td></tr></table></figure></p>
+<p><img src="https://upload-images.jianshu.io/upload_images/6732709-3107dd9f6805fa2b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="feature-feature relationships"></p>
+<h6 id="标准化数据"><a href="#标准化数据" class="headerlink" title="标准化数据"></a>标准化数据</h6><p>从数据集中删除不需要的单元格后，下一步是标准化数据。默认情况下，采用全局缩放规范化方法<code>LogNormalize</code>，通过总表达式对每个单元格的要素表达式度量进行标准化，将其乘以比例因子（默认为10,000），并对结果进行对数转换。归一化值存储在pbmc[[“RNA”]]@data。<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pbmc &lt;- NormalizeData(<span class="selector-tag">object</span> = pbmc, normalization<span class="selector-class">.method</span> = <span class="string">"LogNormalize"</span>, scale<span class="selector-class">.factor</span> = <span class="number">10000</span>)</span><br></pre></td></tr></table></figure></p>
+<h6 id="识别高度可变的特征（特征选择）"><a href="#识别高度可变的特征（特征选择）" class="headerlink" title="识别高度可变的特征（特征选择）"></a>识别高度可变的特征（特征选择）</h6><p>然后计算在数据集中表现出高细胞间差异的特征子集（即，它们在一些细胞中高度表达，而在其他细胞中低表达）。作者和<a href="https://www.nature.com/articles/nmeth.2645" target="_blank" rel="noopener">其他人研究者</a>发现，在下游分析中关注这些基因有助于突出单细胞数据集中的生物信号。</p>
+<p><a href="https://www.biorxiv.org/content/early/2018/11/02/460147.full.pdf" target="_blank" rel="noopener">这里</a>详细描述了SeuratV3中的程序，并通过直接建模单细胞数据中固有的均值 - 方差关系对先前版本进行了改进，并在<code>FindVariableFeatures</code>函数中实现。默认情况下，为每个数据集返回2,000个要素。这些将用于下游分析，如PCA。</p>
+<figure class="highlight lisp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">pbmc &lt;- FindVariableFeatures(<span class="name">object</span> = pbmc, selection.method = <span class="string">"vst"</span>, nfeatures = <span class="number">2000</span>)</span><br><span class="line"></span><br><span class="line"># Identify the <span class="number">10</span> most highly variable genes</span><br><span class="line">top10 &lt;- head(<span class="name">x</span> = VariableFeatures(<span class="name">object</span> = pbmc), <span class="number">10</span>)</span><br><span class="line"></span><br><span class="line"># plot variable features with and without labels</span><br><span class="line">plot1 &lt;- VariableFeaturePlot(<span class="name">object</span> = pbmc)</span><br><span class="line">plot2 &lt;- LabelPoints(<span class="name">plot</span> = plot1, points = top10, repel = TRUE)</span><br><span class="line">CombinePlots(<span class="name">plots</span> = list(<span class="name">plot1</span>, plot2))</span><br></pre></td></tr></table></figure>
+<p><img src="https://upload-images.jianshu.io/upload_images/6732709-c7818cf94b25d522.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="特征选择"></p>
+<h6 id="缩放数据"><a href="#缩放数据" class="headerlink" title="缩放数据"></a>缩放数据</h6><p>接下来，应用线性变换（’缩放’），这是在PCA等降维技术之前的标准预处理步骤。该ScaleData函数：<br>改变每个基因的表达，使得跨细胞的平均表达为0<br>缩放每个基因的表达，以便跨细胞的方差为1<br>该步骤在下游分析中给予相同的权重，因此高表达的基因不占优势结果存储在 pbmc[[“RNA”]]@scale.data</p>
+<h6 id="执行线性降维聚类"><a href="#执行线性降维聚类" class="headerlink" title="执行线性降维聚类"></a>执行线性降维聚类</h6><p>对缩放数据执行PCA。默认情况下，只有先前确定的变量要素用作输入，但features如果要选择其他子集，则可以使用参数定义。<br>瑟拉提供定义可视化细胞和功能的几种有用的方式PCA，包括VizDimReduction，DimPlot，和DimHeatmap</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="title">VizDimLoadings</span><span class="params">(object = pbmc, dims = <span class="number">1</span>:<span class="number">2</span>, reduction = <span class="string">"pca"</span>)</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="title">DimPlot</span><span class="params">(object = pbmc, reduction = <span class="string">"pca"</span>)</span></span></span><br></pre></td></tr></table></figure>
+<p><img src="https://upload-images.jianshu.io/upload_images/6732709-90db5c2803cde678.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="PC"><br>特别是DimHeatmap允许容易地探索数据集中的异质性的主要来源，并且在试图决定包括哪些PC以用于进一步的下游分析时可以是有用的。细胞和特征都根据其PCA分数排序。设置cells为数字可以绘制光谱两端的“极端”单元格，从而大大加快了大型数据集的绘图速度。虽然显然是一种监督分析，但我们发现这是探索相关特征集的有用工具。<br><figure class="highlight jboss-cli"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">DimHeatmap<span class="params">(<span class="attr">object</span> = pbmc, <span class="attr">dims</span> = 1, <span class="attr">cells</span> = 500, <span class="attr">balanced</span> = TRUE)</span></span><br></pre></td></tr></table></figure></p>
+<p><img src="https://upload-images.jianshu.io/upload_images/6732709-9a3d81a11131517e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="PC热图"></p>
+<h6 id="确定数据集的“维度”"><a href="#确定数据集的“维度”" class="headerlink" title="确定数据集的“维度”"></a>确定数据集的“维度”</h6><p>为了克服scRNA-seq数据的任何单一特征中的广泛技术噪声，Seurat基于其PCA分数对细胞进行聚类，每个PC基本上代表在相关特征集中组合信息的“元特征”。因此，顶部主要组件表示数据集的强大压缩。但是，我们应该选择包含多少个组件？10？20？100？在<a href="http://www.cell.com/abstract/S0092-8674(15" target="_blank" rel="noopener">Macosko <em>等</em></a>00549-8)人中，实施了一项受JackStraw程序启发的重采样测试。我们随机置换数据的子集（默认为1％）并重新运行PCA，构建特征分数的“空分布”，并重复此过程。我们将“重要”PC识别为具有低p值特征的强大丰富的PC。<br><figure class="highlight jboss-cli"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># <span class="doctag">NOTE:</span> This process can take a long time for big datasets, comment out for expediency. More approximate techniques such</span></span><br><span class="line"><span class="comment"># as those implemented in ElbowPlot() can be used to reduce computation time</span></span><br><span class="line">pbmc &lt;- JackStraw<span class="params">(<span class="attr">object</span> = pbmc, num.<span class="attr">replicate</span> = 100)</span></span><br><span class="line">pbmc &lt;- ScoreJackStraw<span class="params">(<span class="attr">object</span> = pbmc, <span class="attr">dims</span> = 1:20)</span></span><br></pre></td></tr></table></figure></p>
+<p>该JackStrawPlot功能提供了一种可视化工具，用于比较每台PC的p值分布和均匀分布（虚线）。“重要的”PC将显示具有低p值的特征的强烈丰富（虚线上方的实线）。在这种情况下，看起来在前10-12PC之后，重要性急剧下降。<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="title">JackStrawPlot</span><span class="params">(object = pbmc, dims = <span class="number">1</span>:<span class="number">15</span>)</span></span></span><br></pre></td></tr></table></figure></p>
+<p><img src="https://upload-images.jianshu.io/upload_images/6732709-59f03bf39abda438.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="JackStrawPlot"><br>另一种启发式方法生成“肘图”：基于每个（ElbowPlot函数）解释的方差百分比对主成分进行排序。在这个例子中，我们可以观察PC9-10周围的“肘部”，这表明大多数真实信号都是在前10台PC中捕获的。<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="title">ElbowPlot</span><span class="params">(object = pbmc)</span></span></span><br></pre></td></tr></table></figure></p>
+<p>识别数据集的真实维度 - 对用户来说可能具有挑战性/不确定性。因此，我们建议考虑这三种方法。第一个是更多的监督，探索PC以确定异质性的相关来源，并且可以与GSEA一起使用。第二个实现基于随机空模型的统计测试，但对于大型数据集来说是耗时的，并且可能不会返回明确的PC截止。第三种是常用的启发式算法，可以立即计算。在这个例子中，所有三种方法产生了类似的结果，但我们可能有理由在PC 7-12之间选择任何作为截止值的东西。<br>我们在这里选择了10，但鼓励用户考虑以下内容：<br>树突细胞和NK爱好者可以认识到与PC12和13强烈相关的基因定义了罕见的免疫亚群（即MZB1是浆细胞样DC的标记）。然而，这些组是如此罕见，如果没有先验知识，很难将这种大小的数据集与背景噪声区分开来。<br>我们鼓励用户使用不同数量的PC（10,15甚至50！）重复下游分析。正如您将观察到的，结果通常没有显着差异。<br>在选择此参数时，我们建议用户在较高的一侧犯错。例如，仅使用5台PC进行下游分析确实会对结果造成严重影响。</p>
+<h6 id="聚类细胞"><a href="#聚类细胞" class="headerlink" title="聚类细胞"></a>聚类细胞</h6><p>Seurat v3采用基于图形的聚类方法，建立在（<a href="http://www.cell.com/abstract/S0092-8674(15" target="_blank" rel="noopener">Macosko <em>等人</em></a>00549-8)）的初始策略<a href="http://www.cell.com/abstract/S0092-8674(15" target="_blank" rel="noopener">之上</a>00549-8)。重要的是，驱动聚类分析的<em>距离度量</em>（基于先前识别的PC）保持不变。然而，我们将细胞距离矩阵分成簇的方法已经大大改进。我们的方法受到最近手稿的启发，这些手稿将基于图形的聚类方法应用于scRNA-seq数据<a href="http://bioinformatics.oxfordjournals.org/content/early/2015/02/10/bioinformatics.btv088.abstract" target="_blank" rel="noopener">[SNN-Cliq，Xu和Su，Bioinformatics，2015]</a>和CyTOF数据<a href="http://www.ncbi.nlm.nih.gov/pubmed/26095251" target="_blank" rel="noopener">[PhenoGraph，Levine <em>等</em>，Cell，2015]</a>。简而言之，这些方法将单元格嵌入图形结构中 - 例如K-最近邻（KNN）图形，在具有相似特征表达模式的单元格之间绘制边缘，然后尝试将此图形划分为高度互连的“准集团”或“社区”。<br>与PhenoGraph一样，我们首先根据PCA空间中的欧氏距离构建KNN图，并根据其局部邻域中的共享重叠（Jaccard相似性）细化任意两个单元之间的边权重。使用该<code>FindNeighbors</code>函数执行该步骤，并将先前定义的数据集维度（前10个PC）作为输入。<br>为了聚类细胞，我们接下来应用模块化优化技术，例如Louvain算法（默认）或SLM <a href="http://dx.doi.org/10.1088/1742-5468/2008/10/P10008" target="_blank" rel="noopener">[SLM，Blondel <em>等</em>，Journal of Statistical Mechanics]</a>，将细胞迭代分组在一起，目的是优化标准模块化功能。该<code>FindClusters</code>函数实现此过程，并包含一个分辨率参数，用于设置下游群集的“粒度”，增加的值会导致更多的群集。我们发现将此参数设置在0.4-1.2之间通常会返回大约3K单元格的单细胞数据集的良好结果。较大的数据集通常会增加最佳分辨率。可以使用该<code>Idents</code>功能找到群集。<br><figure class="highlight django"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="xml">pbmc <span class="tag">&lt;<span class="name">-</span> <span class="attr">FindNeighbors</span>(<span class="attr">object</span> = <span class="string">pbmc,</span> <span class="attr">dims</span> = <span class="string">1:10)</span></span></span></span><br><span class="line"><span class="xml">pbmc <span class="tag">&lt;<span class="name">-</span> <span class="attr">FindClusters</span>(<span class="attr">object</span> = <span class="string">pbmc,</span> <span class="attr">resolution</span> = <span class="string">0.5)</span></span></span></span><br></pre></td></tr></table></figure></p>
+<h6 id="运行非线性降维（UMAP-tSNE）"><a href="#运行非线性降维（UMAP-tSNE）" class="headerlink" title="运行非线性降维（UMAP / tSNE）"></a>运行非线性降维（UMAP / tSNE）</h6><p>Seurat提供了几种非线性降维技术，如tSNE和UMAP，可视化和探索这些数据集。这些算法的目标是学习数据的基础流形，以便在低维空间中将相似的单元放在一起。上面确定的基于图的聚类内的单元应该共同定位这些降维图。作为UMAP和tSNE的输入，我们建议使用相同的PC作为聚类分析的输入。<br><figure class="highlight nix"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># If you haven't installed UMAP, you can do so via reticulate::py_install(packages = 'umap-learn')</span></span><br><span class="line">pbmc &lt;- RunUMAP(<span class="attr">object</span> = pbmc, <span class="attr">dims</span> = <span class="number">1</span>:<span class="number">10</span>)</span><br><span class="line"><span class="comment"># note that you can set `label = TRUE` or use the LabelClusters function to help label individual clusters</span></span><br><span class="line">DimPlot(<span class="attr">object</span> = pbmc, <span class="attr">reduction</span> = <span class="string">"umap"</span>)</span><br></pre></td></tr></table></figure></p>
+<h6 id="寻找差异表达的特征（聚类生物标志物）"><a href="#寻找差异表达的特征（聚类生物标志物）" class="headerlink" title="寻找差异表达的特征（聚类生物标志物）"></a>寻找差异表达的特征（聚类生物标志物）</h6><p>Seurat可以帮助您找到通过差异表达定义聚类的标记。默认情况下，它标识单个群集（指定ident.1）的正负标记，与所有其他单元格进行比较。FindAllMarkers为所有群集自动执行此过程，但您也可以测试群集彼此之间或所有单元格。<br>该min.pct论证要求在两组单元中的任一组中以最小百分比检测特征，并且thresh.test参数要求在两组之间以一定量差异地表示（平均）特征。您可以将这两个设置为0，但时间会急剧增加 - 因为这将测试大量不太可能具有高度歧视性的功能。作为加速这些计算的另一种选择，max.cells.per.ident可以设置。这将对每个标识类进行下采样，使其不再具有比设置的更多的单元格。虽然通常会出现功率损失，但速度增加可能是显着的，并且最高度差异表达的功能可能仍然会升至顶部。<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cluster1<span class="selector-class">.markers</span> &lt;- FindMarkers(<span class="selector-tag">object</span> = pbmc, ident.<span class="number">1</span> = <span class="number">1</span>, min<span class="selector-class">.pct</span> = <span class="number">0.25</span>)</span><br><span class="line"><span class="function"><span class="title">head</span><span class="params">(x = cluster1.markers, n = <span class="number">5</span>)</span></span></span><br></pre></td></tr></table></figure></p>
+<p>Seurat有几个差分表达式测试，可以使用test.use参数设置<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cluster1<span class="selector-class">.markers</span> &lt;- FindMarkers(<span class="selector-tag">object</span> = pbmc, ident.<span class="number">1</span> = <span class="number">0</span>, logfc<span class="selector-class">.threshold</span> = <span class="number">0.25</span>, test<span class="selector-class">.use</span> = <span class="string">"roc"</span>, only<span class="selector-class">.pos</span> = TRUE)</span><br></pre></td></tr></table></figure></p>
+<p>我们提供了几种用于可视化标记表达的工具。VlnPlot（显示跨群集的表达概率分布），以及FeaturePlot（在tSNE或PCA图上可视化特征表达）是我们最常用的可视化。我们还建议您探索RidgePlot，CellScatter以及DotPlot查看数据集的其他方法。<br><figure class="highlight lisp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">VlnPlot(<span class="name">object</span> = pbmc, features = c(<span class="string">"MS4A1"</span>, <span class="string">"CD79A"</span>))</span><br></pre></td></tr></table></figure></p>
+<p><img src="https://upload-images.jianshu.io/upload_images/6732709-1e9de3d631af043c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="小提琴图"><br><figure class="highlight lisp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">FeaturePlot(<span class="name">object</span> = pbmc, features = c(<span class="string">"MS4A1"</span>, <span class="string">"GNLY"</span>, <span class="string">"CD3E"</span>, <span class="string">"CD14"</span>, <span class="string">"FCER1A"</span>, <span class="string">"FCGR3A"</span>, <span class="string">"LYZ"</span>, <span class="string">"PPBP"</span>, <span class="string">"CD8A"</span>))</span><br></pre></td></tr></table></figure></p>
+<p><img src="https://upload-images.jianshu.io/upload_images/6732709-7e6116c15df5c490.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="特征图"><br>DoHeatmap为给定的单元格和要素生成表达式热图。在这种情况下，我们正在为每个群集绘制前20个标记（或所有标记，如果小于20）。<br><figure class="highlight jboss-cli"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">top10 &lt;- pbmc.markers %&gt;% group_by<span class="params">(cluster)</span> %&gt;% top_n<span class="params">(<span class="attr">n</span> = 10, <span class="attr">wt</span> = avg_logFC)</span></span><br><span class="line">DoHeatmap<span class="params">(<span class="attr">object</span> = pbmc, <span class="attr">features</span> = top10$gene)</span> + NoLegend<span class="params">()</span></span><br></pre></td></tr></table></figure></p>
+<p><img src="https://upload-images.jianshu.io/upload_images/6732709-d5764633333f1552.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="热图"></p>
+<h6 id="将单元类型标识分配给集群"><a href="#将单元类型标识分配给集群" class="headerlink" title="将单元类型标识分配给集群"></a>将单元类型标识分配给集群</h6><p>根据每个类群中高表达的特异基因，我们可以利用已知细胞类型特定的标记基因，对每个类群确定细胞类型。<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">new<span class="selector-class">.cluster</span><span class="selector-class">.ids</span> &lt;- c(<span class="string">"Memory CD4 T"</span>, <span class="string">"CD14+ Mono"</span>, <span class="string">"Naive CD4 T"</span>, <span class="string">"B"</span>, <span class="string">"CD8 T"</span>, <span class="string">"FCGR3A+ Mono"</span>, <span class="string">"NK"</span>, <span class="string">"DC"</span>, <span class="string">"Mk"</span>)</span><br><span class="line"><span class="function"><span class="title">names</span><span class="params">(x = new.cluster.ids)</span></span> &lt;- levels(x = pbmc)</span><br><span class="line">pbmc &lt;- RenameIdents(<span class="selector-tag">object</span> = pbmc, new<span class="selector-class">.cluster</span><span class="selector-class">.ids</span>)</span><br><span class="line"><span class="function"><span class="title">DimPlot</span><span class="params">(object = pbmc, reduction = <span class="string">"umap"</span>, label = TRUE, pt.size = <span class="number">0.5</span>)</span></span> + NoLegend()</span><br></pre></td></tr></table></figure></p>
+<p><img src="https://upload-images.jianshu.io/upload_images/6732709-326cb37f3fd9475a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="定细胞类型"></p>
+<h6 id="参考材料："><a href="#参考材料：" class="headerlink" title="参考材料："></a>参考材料：</h6><p><a href="https://satijalab.org/seurat/" target="_blank" rel="noopener">https://satijalab.org/seurat/</a></p>
+<p><img src="https://upload-images.jianshu.io/upload_images/6732709-bb82ed2df2373dcd.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="公众号首发平台"></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+<div>
+  
+    <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------　　　　本文结束　<i class="fa fa-heart"></i>　感谢您的阅读　　　　-------------</div>
+    
+</div>
+
+  
+</div>
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/05/14/CR-单细胞水平研究人类睾丸细胞图谱/" rel="next" title="CR-单细胞水平研究人类睾丸细胞图谱">
+                <i class="fa fa-chevron-left"></i> CR-单细胞水平研究人类睾丸细胞图谱
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/modelface.png" alt="浏阳（Yang)">
+            
+              <p class="site-author-name" itemprop="name">浏阳（Yang)</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">20</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/liuyang0681" target="_blank" title="Github">
+                      
+                        <i class="fa fa-fw fa-globe"></i>Github</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:liuyang0681@hotmail.com" target="_blank" title="Email">
+                      
+                        <i class="fa fa-fw fa-globe"></i>Email</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#Seurat简介"><span class="nav-number">1.</span> <span class="nav-text">Seurat简介</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#更新记录"><span class="nav-number">2.</span> <span class="nav-text">更新记录</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Seurat安装"><span class="nav-number">3.</span> <span class="nav-text">Seurat安装</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Seurat分析单细胞RNA-seq数据"><span class="nav-number">4.</span> <span class="nav-text">Seurat分析单细胞RNA-seq数据</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#QC并选择细胞进行进一步分析"><span class="nav-number">4.0.1.</span> <span class="nav-text">QC并选择细胞进行进一步分析</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#标准化数据"><span class="nav-number">4.0.2.</span> <span class="nav-text">标准化数据</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#识别高度可变的特征（特征选择）"><span class="nav-number">4.0.3.</span> <span class="nav-text">识别高度可变的特征（特征选择）</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#缩放数据"><span class="nav-number">4.0.4.</span> <span class="nav-text">缩放数据</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#执行线性降维聚类"><span class="nav-number">4.0.5.</span> <span class="nav-text">执行线性降维聚类</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#确定数据集的“维度”"><span class="nav-number">4.0.6.</span> <span class="nav-text">确定数据集的“维度”</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#聚类细胞"><span class="nav-number">4.0.7.</span> <span class="nav-text">聚类细胞</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#运行非线性降维（UMAP-tSNE）"><span class="nav-number">4.0.8.</span> <span class="nav-text">运行非线性降维（UMAP / tSNE）</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#寻找差异表达的特征（聚类生物标志物）"><span class="nav-number">4.0.9.</span> <span class="nav-text">寻找差异表达的特征（聚类生物标志物）</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#将单元类型标识分配给集群"><span class="nav-number">4.0.10.</span> <span class="nav-text">将单元类型标识分配给集群</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#参考材料："><span class="nav-number">4.0.11.</span> <span class="nav-text">参考材料：</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="powered-by">
+<i class="fa fa-user-md"></i><span id="busuanzi_container_site_uv">
+  本站访客数:<span id="busuanzi_value_site_uv"></span>
+</span>
+</div>
+
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">浏阳（Yang)</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
