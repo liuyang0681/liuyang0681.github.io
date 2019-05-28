@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://liuyang0681.github.io/"/>
-  <updated>2019-05-23T12:35:42.834Z</updated>
+  <updated>2019-05-28T09:06:26.095Z</updated>
   <id>http://liuyang0681.github.io/</id>
   
   <author>
@@ -15,6 +15,29 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>eLIFE-单细胞转录组学揭示果蝇中脑的细胞多样性</title>
+    <link href="http://liuyang0681.github.io/2019/05/28/eLIFE-%E5%8D%95%E7%BB%86%E8%83%9E%E8%BD%AC%E5%BD%95%E7%BB%84%E5%AD%A6%E6%8F%AD%E7%A4%BA%E6%9E%9C%E8%9D%87%E4%B8%AD%E8%84%91%E7%9A%84%E7%BB%86%E8%83%9E%E5%A4%9A%E6%A0%B7%E6%80%A7/"/>
+    <id>http://liuyang0681.github.io/2019/05/28/eLIFE-单细胞转录组学揭示果蝇中脑的细胞多样性/</id>
+    <published>2019-05-28T09:05:14.000Z</published>
+    <updated>2019-05-28T09:06:26.095Z</updated>
+    
+    <content type="html"><![CDATA[<h4 id="文章信息"><a href="#文章信息" class="headerlink" title="文章信息"></a>文章信息</h4><figure class="highlight livecodeserver"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">标题：Cellular diversity <span class="keyword">in</span> <span class="keyword">the</span> Drosophila midbrain revealed <span class="keyword">by</span> single-cell transcriptomics</span><br><span class="line">期刊：eLife</span><br><span class="line">日期：<span class="number">19</span> April <span class="number">2018</span></span><br></pre></td></tr></table></figure><p><img src="https://upload-images.jianshu.io/upload_images/6732709-61e1ff34864718ea.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p><h4 id="通讯作者介绍"><a href="#通讯作者介绍" class="headerlink" title="通讯作者介绍"></a>通讯作者介绍</h4><p><img src="https://upload-images.jianshu.io/upload_images/6732709-bc6a21d8d313b2ce.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt><br>Scott是Wellcome Trust基础生物医学科学研究院首席研究员，神经生物学教授，EMBO成员，并获得2014年Liliane Bettencourt生命科学奖，多年从事果蝇神经通路研究。</p><h4 id="样本及测序简介"><a href="#样本及测序简介" class="headerlink" title="样本及测序简介"></a>样本及测序简介</h4><p><img src="https://upload-images.jianshu.io/upload_images/6732709-717144602607990e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt><br>研究样本为80-100个雌雄比例1:1果蝇中脑组织，消化成单细胞，利用Drop-seq技术（10X公司技术基础），完成单细胞建库及后续生成矩阵，降维聚类等分析。同时也做了斜纹夜蛾1：1混养建库测试双胞比率情况。<br><img src="https://upload-images.jianshu.io/upload_images/6732709-5428edf2e69eab33.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt><br><img src="https://upload-images.jianshu.io/upload_images/6732709-7677b25edab9932c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p><p>数据合并了八个独立的文库，共获得19,260个单细胞，通过过滤垫UMI低于800的细胞，最后获得10286个高质量的单细胞数据。<br><img src="https://upload-images.jianshu.io/upload_images/6732709-c375537203b153b5.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt><br>此外还评估了drop-out rate，策略为选择一个在雄性中特异性表达的非编码RNA，评估UMI比率，来预测整体的drop-out比率。</p><h4 id="数据分析策略"><a href="#数据分析策略" class="headerlink" title="数据分析策略"></a>数据分析策略</h4><p>通过对高质量的细胞进行聚类，共获得28个亚群，其中最大的一群为7000多个细胞，作者标注为未注释状态。<br><img src="https://upload-images.jianshu.io/upload_images/6732709-38e71832aa7d4bdf.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt><br>通过和之前的群体RNA的数据做比较，来验证本次试验的准确性。<br>后续做了蘑菇体Kenyon细胞的鉴定、嗅觉神经元的识别、胶质细胞和星形胶质细胞识别、分配速效神经递质、神经肽表达分析、单胺能神经元的分配和细分、多巴胺受体、多巴胺代谢、烟碱型神经递质受体的分布、活性调节基因的共表达等个性化分析。<br><img src="https://upload-images.jianshu.io/upload_images/6732709-188b8ec2525a4a50.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p><p><img src="https://upload-images.jianshu.io/upload_images/6732709-d9cb9e48c87f3bf3.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p><p><img src="https://upload-images.jianshu.io/upload_images/6732709-5cbca504dac03f62.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p><h4 id="临床意义及借鉴点"><a href="#临床意义及借鉴点" class="headerlink" title="临床意义及借鉴点"></a>临床意义及借鉴点</h4><p>单细胞在昆虫里的研究为单细胞技术在组织大小和细胞数量问题提供解决方案。蝇是具有组织的复杂生物，其具有与许多哺乳动物器官类似的功能。而且，与它们的哺乳动物等同物相比，这些苍蝇组织中的每一个都包含少量细胞。在研究大脑时，这技术实现上可能是最明显的，作为脑细胞图谱的模型具有明显优势。</p><h5 id="参考材料："><a href="#参考材料：" class="headerlink" title="参考材料："></a>参考材料：</h5><p><a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5927767/" target="_blank" rel="noopener">https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5927767/</a></p><p>关注微信公众号，第一时间获取更新<br><img src="https://upload-images.jianshu.io/upload_images/6732709-260feca2b4b63c8d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h4 id=&quot;文章信息&quot;&gt;&lt;a href=&quot;#文章信息&quot; class=&quot;headerlink&quot; title=&quot;文章信息&quot;&gt;&lt;/a&gt;文章信息&lt;/h4&gt;&lt;figure class=&quot;highlight livecodeserver&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gu
+      
+    
+    </summary>
+    
+      <category term="文献追踪" scheme="http://liuyang0681.github.io/categories/%E6%96%87%E7%8C%AE%E8%BF%BD%E8%B8%AA/"/>
+    
+    
+  </entry>
   
   <entry>
     <title>2019年人类细胞图谱计划（HCA）日本会议</title>
