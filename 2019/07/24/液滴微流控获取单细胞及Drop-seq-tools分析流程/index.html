@@ -1,0 +1,802 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta name="google-site-verification" content="G086OtDfg3zyMNCUZ4n9po1t2K6PbweKCifJcGI8awA">
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+<meta name="referrer" content="no-referrer">
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="暗之洋光" type="application/atom+xml">
+
+
+
+
+
+
+<meta name="description" content="简介&amp;emsp;&amp;emsp;单细胞领域目前算是进入白热化的阶段，自09年第一篇单细胞文章发表已经度过了10个年头，在通量和成本做到较好的平衡是Department of Genetics, Harvard Medical School，mccarroll实验室15年开发的基于液滴微流控系统生成单细胞Drop-seq技术。目前商业化最成功的10Xgenomics公司开发的单细胞产品也是在此技术的基础">
+<meta property="og:type" content="article">
+<meta property="og:title" content="液滴微流控获取单细胞及Drop-seq_tools分析流程">
+<meta property="og:url" content="http://liuyang0681.github.io/2019/07/24/液滴微流控获取单细胞及Drop-seq-tools分析流程/index.html">
+<meta property="og:site_name" content="暗之洋光">
+<meta property="og:description" content="简介&amp;emsp;&amp;emsp;单细胞领域目前算是进入白热化的阶段，自09年第一篇单细胞文章发表已经度过了10个年头，在通量和成本做到较好的平衡是Department of Genetics, Harvard Medical School，mccarroll实验室15年开发的基于液滴微流控系统生成单细胞Drop-seq技术。目前商业化最成功的10Xgenomics公司开发的单细胞产品也是在此技术的基础">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/6732709-7238fce9e7858baa.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/6732709-cf89e27d36a3f9b3.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/6732709-5a9bd427b1510109.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/6732709-b4f617c0a36e2d6b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/6732709-ffd9e5b5502a93b9.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2019-07-24T04:23:23.757Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="液滴微流控获取单细胞及Drop-seq_tools分析流程">
+<meta name="twitter:description" content="简介&amp;emsp;&amp;emsp;单细胞领域目前算是进入白热化的阶段，自09年第一篇单细胞文章发表已经度过了10个年头，在通量和成本做到较好的平衡是Department of Genetics, Harvard Medical School，mccarroll实验室15年开发的基于液滴微流控系统生成单细胞Drop-seq技术。目前商业化最成功的10Xgenomics公司开发的单细胞产品也是在此技术的基础">
+<meta name="twitter:image" content="https://upload-images.jianshu.io/upload_images/6732709-7238fce9e7858baa.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://liuyang0681.github.io/2019/07/24/液滴微流控获取单细胞及Drop-seq-tools分析流程/">
+
+
+
+
+
+  <title>液滴微流控获取单细胞及Drop-seq_tools分析流程 | 暗之洋光</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+   
+      <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">暗之洋光</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-sitemap">
+          <a href="/sitemap.xml" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br>
+            
+            站点地图
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://liuyang0681.github.io/2019/07/24/液滴微流控获取单细胞及Drop-seq-tools分析流程/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="浏阳（Yang)">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/modelface.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="暗之洋光">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">液滴微流控获取单细胞及Drop-seq_tools分析流程</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-24T12:19:09+08:00">
+                2019-07-24
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/生信分析/" itemprop="url" rel="index">
+                    <span itemprop="name">生信分析</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h5 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h5><p>&emsp;&emsp;单细胞领域目前算是进入白热化的阶段，自09年第一篇单细胞文章发表已经度过了10个年头，在通量和成本做到较好的平衡是Department of Genetics, Harvard Medical School，mccarroll实验室15年开发的基于液滴微流控系统生成单细胞Drop-seq技术。目前商业化最成功的10Xgenomics公司开发的单细胞产品也是在此技术的基础上优化而成。HCA人类细胞图谱计划得益与目前这些技术，快速实现了人类多个组织器官的单细胞图谱绘制。本文简要介绍Drop-seq实验的原理及数据分析工具Drop-seq_tools流程要点。<br><img src="https://upload-images.jianshu.io/upload_images/6732709-7238fce9e7858baa.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Drop-seq平台"></p>
+<h6 id="Drop-seq实验"><a href="#Drop-seq实验" class="headerlink" title="Drop-seq实验"></a>Drop-seq实验</h6><p>&emsp;&emsp;Drop-seq主要核心部件为增压装置及液滴微流控合成装置，原理利用压力将磁珠，细胞，矿物油三种材料，压到微通道里，实现三个物质混成一个大液滴完成单细胞分离标记，完成后续建库。<br><img src="https://upload-images.jianshu.io/upload_images/6732709-cf89e27d36a3f9b3.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt><br><img src="https://upload-images.jianshu.io/upload_images/6732709-5a9bd427b1510109.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
+<h5 id="Drop-seq-tools分析流程"><a href="#Drop-seq-tools分析流程" class="headerlink" title="Drop-seq_tools分析流程"></a>Drop-seq_tools分析流程</h5><p>&emsp;&emsp;不同的实验方案生成的单细胞数据，分析上整体差别不大，无外乎就是原始数据过滤质控，然后比对到基因组上，根据UMI及细胞barcode实现基因<br><img src="https://upload-images.jianshu.io/upload_images/6732709-b4f617c0a36e2d6b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt><br>&emsp;&emsp;Drop-seq_tools配合Picardtools，samtools STAR等工具实现对fq bam sam 等文件处理。流程首先将构建参考基因组文件夹，对物种的参考基因组fa及gtf文件做处理。<br><figure class="highlight livecodeserver"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">● fasta : The reference sequence <span class="keyword">of</span> <span class="keyword">the</span> organism. Needed <span class="keyword">for</span> most aligners.</span><br><span class="line">● dict : A dictionary <span class="built_in">file</span> <span class="keyword">as</span> generated <span class="keyword">by</span> Picard’s CreateSequenceDictionary . Needed <span class="keyword">for</span> Picard Tools.</span><br><span class="line">● gtf: The principle <span class="built_in">file</span> <span class="built_in">to</span> determine <span class="keyword">the</span> location <span class="keyword">of</span> genomic features like genes, transcripts, <span class="keyword">and</span> exons. Many other metadata <span class="built_in">files</span> we use derive <span class="built_in">from</span> this original <span class="built_in">file</span>. We download our GTF <span class="built_in">files</span> <span class="built_in">from</span> ensembl, which has <span class="keyword">a</span> handy description <span class="keyword">of</span> <span class="keyword">the</span> <span class="built_in">file</span> <span class="built_in">format</span> here . Ensembl has <span class="keyword">a</span> huge <span class="built_in">number</span> <span class="keyword">of</span> prepared GTF <span class="built_in">files</span> <span class="keyword">for</span> <span class="keyword">a</span> variety <span class="keyword">of</span> organisms here .</span><br><span class="line">● refFlat: This <span class="built_in">file</span> <span class="keyword">contains</span> <span class="keyword">a</span> subset <span class="keyword">of</span> <span class="keyword">the</span> <span class="keyword">the</span> same information <span class="keyword">in</span> <span class="keyword">the</span> GTF <span class="built_in">file</span> <span class="keyword">in</span> <span class="keyword">a</span> different <span class="built_in">format</span>. Picard tools like <span class="keyword">the</span> refFlat <span class="built_in">format</span>, so we <span class="built_in">require</span> this <span class="keyword">as</span> well. To make life easy, we provide <span class="keyword">a</span> program ConvertToRefFlat that can <span class="built_in">convert</span> <span class="built_in">files</span> <span class="built_in">from</span> GTF <span class="built_in">format</span> <span class="built_in">to</span> refFlat <span class="keyword">for</span> you.</span><br><span class="line">● genes.intervals: The genes <span class="built_in">from</span> <span class="keyword">the</span> GTF <span class="built_in">file</span> <span class="keyword">in</span> interval list <span class="built_in">format</span> . This <span class="built_in">file</span> is optional, <span class="keyword">and</span> useful <span class="keyword">if</span> you want <span class="built_in">to</span> go back <span class="built_in">to</span> your BAM later <span class="built_in">to</span> see what gene(s) <span class="keyword">a</span> <span class="built_in">read</span> aligns <span class="built_in">to</span>.</span><br><span class="line">● exons.intervals: The exons <span class="built_in">from</span> <span class="keyword">the</span> GTF <span class="built_in">file</span> <span class="keyword">in</span> interval list <span class="built_in">format</span> . This <span class="built_in">file</span> is optional, <span class="keyword">and</span> useful <span class="keyword">if</span> you want <span class="built_in">to</span> go back <span class="built_in">to</span> your BAM <span class="keyword">and</span> view what exon(s) <span class="keyword">a</span> <span class="built_in">read</span> aligns <span class="built_in">to</span>.</span><br><span class="line">● rRNA.intervals: The locations <span class="keyword">of</span> ribosomal RNA <span class="keyword">in</span> interval list <span class="built_in">format</span> . This <span class="built_in">file</span> is optional, but we find <span class="keyword">it</span> useful <span class="built_in">to</span> later assess how much <span class="keyword">of</span> <span class="keyword">a</span> dropseq library aligns <span class="built_in">to</span> rRNA.</span><br><span class="line">● reduced.gtf: This <span class="built_in">file</span> <span class="keyword">contains</span> <span class="keyword">a</span> subset <span class="keyword">of</span> <span class="keyword">the</span> information <span class="keyword">in</span> <span class="keyword">the</span> GTF <span class="built_in">file</span>, but <span class="keyword">in</span> <span class="keyword">a</span> far more human readable <span class="built_in">format</span>. This <span class="built_in">file</span> is optional, but can be generated easily <span class="keyword">by</span> <span class="keyword">the</span> supplied ReduceGTF program that will take <span class="keyword">a</span> GTF <span class="built_in">file</span> <span class="keyword">as</span> input.</span><br></pre></td></tr></table></figure></p>
+<p>然后用Picard FastqToSam将下机文件转换成sam/bam<br>随后就可以利用drop-seq 的工具对bam文件做进一步的处理包括：<br>Example Cell Barcode:<br><figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">TagBamWithReadSequenceExtended</span><br><span class="line">INPUT=my_unaligned_data.bam</span><br><span class="line">OUTPUT=unaligned_tagged_Cell.bam</span><br><span class="line">SUMMARY=unaligned_tagged_Cellular.bam_summary.txt</span><br><span class="line">BASE_RANGE=112</span><br><span class="line">BASE_QUALITY=10</span><br><span class="line">BARCODED_READ=1</span><br><span class="line">DISCARD_READ=False</span><br><span class="line">TAG_NAME=XC</span><br><span class="line">NUM_BASES_BELOW_QUALITY=1</span><br></pre></td></tr></table></figure></p>
+<p>Example Molecular Barcode:<br><figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">TagBamWithReadSequenceExtended</span><br><span class="line">INPUT=unaligned_tagged_Cell.bam</span><br><span class="line">OUTPUT=unaligned_tagged_CellMolecular.bam</span><br><span class="line">SUMMARY=unaligned_tagged_Molecular.bam_summary.txt</span><br><span class="line">BASE_RANGE=1320</span><br><span class="line">BASE_QUALITY=10</span><br><span class="line">BARCODED_READ=1</span><br><span class="line">DISCARD_READ=True</span><br><span class="line">TAG_NAME=XM</span><br><span class="line">NUM_BASES_BELOW_QUALITY=1</span><br></pre></td></tr></table></figure></p>
+<p>FilterBAM<br><figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">TAG_REJECT</span>=XQ</span><br><span class="line"><span class="attr">INPUT</span>=unaligned_tagged_CellMolecular.bam</span><br><span class="line"><span class="attr">OUTPUT</span>=unaligned_tagged_filtered.bam</span><br></pre></td></tr></table></figure></p>
+<p>TrimStartingSequence</p>
+<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">TrimStartingSequence</span><br><span class="line">INPUT=unaligned_tagged_filtered.bam</span><br><span class="line">OUTPUT=unaligned_tagged_trimmed_smart.bam</span><br><span class="line">OUTPUT_SUMMARY=adapter_trimming_report.txt</span><br><span class="line">SEQUENCE=AAGCAGTGGTATCAACGCAGAGTGAATGGG</span><br><span class="line">MISMATCHES=0</span><br><span class="line">NUM_BASES=5</span><br></pre></td></tr></table></figure>
+<p>PolyATrimmer<br><figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">PolyATrimmer</span><br><span class="line">INPUT=unaligned_tagged_trimmed_smart.bam</span><br><span class="line">OUTPUT=unaligned_mc_tagged_polyA_filtered.bam</span><br><span class="line">OUTPUT_SUMMARY=polyA_trimming_report.txt</span><br><span class="line">MISMATCHES=0</span><br><span class="line">NUM_BASES=6</span><br></pre></td></tr></table></figure></p>
+<p>SamToFastq<br><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">java Xmx4g jar /path/<span class="keyword">to</span>/picard/picard.jar SamToFastq</span><br><span class="line"><span class="attribute">INPUT</span>=unaligned_mc_tagged_polyA_filtered.bam</span><br><span class="line"><span class="attribute">FASTQ</span>=unaligned_mc_tagged_polyA_filtered.fastq</span><br></pre></td></tr></table></figure></p>
+<p>以上完成对比对前的数据做完处理，后续做比对处理。<br>STAR<br><figure class="highlight jboss-cli"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">/path/to/STAR/STAR</span></span><br><span class="line"><span class="params">--genomeDir</span> <span class="string">/path/to/STAR_REFERENCE</span></span><br><span class="line"><span class="params">--readFilesIn</span> unaligned_mc_tagged_polyA_filtered.fastq</span><br><span class="line"><span class="params">--outFileNamePrefix</span> star</span><br></pre></td></tr></table></figure></p>
+<p>SortSam<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">java Xmx4g jar /path/to/picard/picard<span class="selector-class">.jar</span> SortSam</span><br><span class="line">I=starAligned<span class="selector-class">.out</span><span class="selector-class">.sam</span></span><br><span class="line">O=aligned<span class="selector-class">.sorted</span><span class="selector-class">.bam</span></span><br><span class="line">SO=queryname</span><br></pre></td></tr></table></figure></p>
+<p>MergeBamAlignment<br><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">java Xmx4g jar /path/<span class="keyword">to</span>/picard/picard.jar MergeBamAlignment</span><br><span class="line"><span class="attribute">REFERENCE_SEQUENCE</span>=my_fasta.fasta</span><br><span class="line"><span class="attribute">UNMAPPED_BAM</span>=unaligned_mc_tagged_polyA_filtered.bam</span><br><span class="line"><span class="attribute">ALIGNED_BAM</span>=aligned.sorted.bam</span><br><span class="line"><span class="attribute">OUTPUT</span>=merged.bam</span><br><span class="line"><span class="attribute">INCLUDE_SECONDARY_ALIGNMENTS</span>=<span class="literal">false</span></span><br><span class="line"><span class="attribute">PAIRED_RUN</span>=<span class="literal">false</span></span><br></pre></td></tr></table></figure></p>
+<p>TagReadWithGeneExon<br><figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">TagReadWithGeneExon</span><br><span class="line">I=merged.bam</span><br><span class="line">O=star_gene_exon_tagged.bam</span><br><span class="line">ANNOTATIONS_FILE=$&#123;refFlat&#125;</span><br><span class="line">TAG=GE</span><br></pre></td></tr></table></figure></p>
+<p>DetectBeadSynthesisErrors Detecting and repairing barcode synthesis errors<br><figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">DetectBeadSynthesisErrors</span><br><span class="line">I=my.bam</span><br><span class="line">O=my_clean.bam</span><br><span class="line">OUTPUT_STATS=my.synthesis_stats.txt</span><br><span class="line">SUMMARY=my.synthesis_stats.summary.txt</span><br><span class="line">NUM_BARCODES= &lt;roughly 2x the number of cells&gt;</span><br><span class="line">PRIMER_SEQUENCE=AAGCAGTGGTATCAACGCAGAGTAC</span><br></pre></td></tr></table></figure></p>
+<p>Digital Gene Expression<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">DigitalExpression</span><br><span class="line">I=out_gene_exon_tagged.bam</span><br><span class="line">O=out_gene_exon_tagged<span class="selector-class">.dge</span><span class="selector-class">.txt</span><span class="selector-class">.gz</span></span><br><span class="line">SUMMARY=out_gene_exon_tagged<span class="selector-class">.dge</span><span class="selector-class">.summary</span><span class="selector-class">.txt</span></span><br><span class="line">NUM_CORE_BARCODES=<span class="number">100</span></span><br></pre></td></tr></table></figure></p>
+<p>Cell Selection<br><figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">BAMTagHistogram</span><br><span class="line">I=out_gene_exon_tagged.bam</span><br><span class="line">O=out_cell_readcounts.txt.gz</span><br><span class="line">TAG=XC</span><br></pre></td></tr></table></figure></p>
+<p>后续的数据可以接入Seurat做后续的过滤分群处理。</p>
+<h5 id="参考材料："><a href="#参考材料：" class="headerlink" title="参考材料："></a>参考材料：</h5><p><a href="https://github.com/broadinstitute/Drop-seq" target="_blank" rel="noopener">https://github.com/broadinstitute/Drop-seq</a><br><a href="http://mccarrolllab.org/dropseq/" target="_blank" rel="noopener">http://mccarrolllab.org/dropseq/</a></p>
+<p>关注微信公众号，第一时间获取更新<br><img src="https://upload-images.jianshu.io/upload_images/6732709-ffd9e5b5502a93b9.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+<div>
+  
+    <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------　　　　本文结束　<i class="fa fa-heart"></i>　感谢您的阅读　　　　-------------</div>
+    
+</div>
+
+  
+</div>
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/06/10/生物统计与R语言（1）/" rel="next" title="生物统计与R语言（1）">
+                <i class="fa fa-chevron-left"></i> 生物统计与R语言（1）
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/modelface.png" alt="浏阳（Yang)">
+            
+              <p class="site-author-name" itemprop="name">浏阳（Yang)</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">26</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/liuyang0681" target="_blank" title="Github">
+                      
+                        <i class="fa fa-fw fa-globe"></i>Github</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:liuyang0681@hotmail.com" target="_blank" title="Email">
+                      
+                        <i class="fa fa-fw fa-globe"></i>Email</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-5"><a class="nav-link" href="#简介"><span class="nav-number">1.</span> <span class="nav-text">简介</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#Drop-seq实验"><span class="nav-number">1.1.</span> <span class="nav-text">Drop-seq实验</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Drop-seq-tools分析流程"><span class="nav-number">2.</span> <span class="nav-text">Drop-seq_tools分析流程</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#参考材料："><span class="nav-number">3.</span> <span class="nav-text">参考材料：</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="powered-by">
+<i class="fa fa-user-md"></i><span id="busuanzi_container_site_uv">
+  本站访客数:<span id="busuanzi_value_site_uv"></span>
+</span>
+</div>
+
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">浏阳（Yang)</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
