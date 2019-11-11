@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://liuyang0681.github.io/"/>
-  <updated>2019-07-24T04:23:23.757Z</updated>
+  <updated>2019-11-11T06:31:24.413Z</updated>
   <id>http://liuyang0681.github.io/</id>
   
   <author>
@@ -15,6 +15,29 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>2019-11-07-cell-正常和白血病中骨髓基质的细胞分类学</title>
+    <link href="http://liuyang0681.github.io/2019/11/11/2019-11-07-cell-%E6%AD%A3%E5%B8%B8%E5%92%8C%E7%99%BD%E8%A1%80%E7%97%85%E4%B8%AD%E9%AA%A8%E9%AB%93%E5%9F%BA%E8%B4%A8%E7%9A%84%E7%BB%86%E8%83%9E%E5%88%86%E7%B1%BB%E5%AD%A6/"/>
+    <id>http://liuyang0681.github.io/2019/11/11/2019-11-07-cell-正常和白血病中骨髓基质的细胞分类学/</id>
+    <published>2019-11-11T06:28:38.000Z</published>
+    <updated>2019-11-11T06:31:24.413Z</updated>
+    
+    <content type="html"><![CDATA[<h4 id="文章信息"><a href="#文章信息" class="headerlink" title="文章信息"></a>文章信息</h4><figure class="highlight armasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">标题：A Cellular Taxonomy of the <span class="keyword">Bone </span><span class="keyword">Marrow </span><span class="keyword">Stroma </span>in Homeostasis <span class="keyword">and </span>Leukemia</span><br><span class="line">期刊：Cell</span><br><span class="line">日期：June <span class="number">13</span>，<span class="number">2018</span></span><br></pre></td></tr></table></figure><p><img src="https://upload-images.jianshu.io/upload_images/6732709-995d3c07136b48e1.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="文章详情"></p><h4 id="通讯作者介绍"><a href="#通讯作者介绍" class="headerlink" title="通讯作者介绍"></a>通讯作者介绍</h4><p><img src="https://upload-images.jianshu.io/upload_images/6732709-02c7a20b7fc0f281.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="David Scadden, MD"></p><p>实验室重点研究血液以其微环境或利基造血干细胞的特殊调控，结合了遗传学，影像学和药理学，定义了骨髓基质的关键组成部分以及干细胞如何运输和植入骨髓。<br>基于由正常的干细胞在正常组织治理机制的了解，该实验室已强调在疾病骨髓基质的作用。已经证明了微环境可以在失调的组织稳态和恶性肿瘤的发生中发挥主要作用。这项工作是研究基于生态位的癌症治疗方法的基础。</p><h4 id="样本及测序简介"><a href="#样本及测序简介" class="headerlink" title="样本及测序简介"></a>样本及测序简介</h4><p><img src="https://upload-images.jianshu.io/upload_images/6732709-74c49ae6c0b8a6d4.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="样本信息"><br>文章利用小鼠骨髓基质niche细胞,取用了6只老鼠，基于液滴微流控系统完成单细胞RNA-seq的构建，共获得20896个单细胞，每个细胞平均捕获1710个基因，分出了17个群类，然后完成后续分析。</p><h4 id="数据分析策略"><a href="#数据分析策略" class="headerlink" title="数据分析策略"></a>数据分析策略</h4><p>1）数据描述层面做了分群，一些特异细胞类型的标记基因表达特征图<br><img src="https://upload-images.jianshu.io/upload_images/6732709-8c3fe6c66d6d21d3.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="标记基因"><br><img src="https://upload-images.jianshu.io/upload_images/6732709-f9af9f1abcd1335a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="数据探索描述"><br>图一中还具体描述了类群间标记基因表达热图，每个类群细胞数目，类群间相关性，抽象图论网络，类群扩散图等信息，后边两个图在常规的单细胞分析中并不是很常见，可以作为单细胞数据描述层面分析上的亮点。<br>2）针对特定的细胞类群，做分亚群处理。<br><img src="https://upload-images.jianshu.io/upload_images/6732709-c01622192233a5ee.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="分亚群"><br>3）针对OLC亚群研究具体的生物学意义。<br><img src="https://upload-images.jianshu.io/upload_images/6732709-a348d90bdaca6a05.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="OLC"><br>4）研究软骨细胞和成纤维细胞的分化路径<br><img src="https://upload-images.jianshu.io/upload_images/6732709-583c287562a3d268.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="两种具体细胞的分化路径"><br>5）研究BMEC亚群<br><img src="https://upload-images.jianshu.io/upload_images/6732709-d36215a693db217d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"><br>6）在造血基因表达过程中，周生细胞的三种亚型分析（新的发现）</p><p><img src="https://upload-images.jianshu.io/upload_images/6732709-08aacda7665623f7.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="三种亚型"><br>7）白血病中骨髓基质重塑<br><img src="https://upload-images.jianshu.io/upload_images/6732709-364e87d9d0c21b88.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="重塑模型"></p><h4 id="临床意义及借鉴点"><a href="#临床意义及借鉴点" class="headerlink" title="临床意义及借鉴点"></a>临床意义及借鉴点</h4><p>研究白血病和正常情况下骨髓基质的细胞图谱，对研究人类细胞白血病发生过程骨髓基质的动态变化成分认知具有重要意义。</p><h5 id="参考材料："><a href="#参考材料：" class="headerlink" title="参考材料："></a>参考材料：</h5><p>Baryawno N, Przybylski D, Kowalczyk MS, et al. A Cellular Taxonomy of the Bone Marrow Stroma in Homeostasis and Leukemia. Cell. 2019;177(7):1915-1932.e16<br>关注微信公众号，第一时间获取更新<br><img src="https://upload-images.jianshu.io/upload_images/6732709-260feca2b4b63c8d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h4 id=&quot;文章信息&quot;&gt;&lt;a href=&quot;#文章信息&quot; class=&quot;headerlink&quot; title=&quot;文章信息&quot;&gt;&lt;/a&gt;文章信息&lt;/h4&gt;&lt;figure class=&quot;highlight armasm&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;p
+      
+    
+    </summary>
+    
+      <category term="文献追踪" scheme="http://liuyang0681.github.io/categories/%E6%96%87%E7%8C%AE%E8%BF%BD%E8%B8%AA/"/>
+    
+    
+  </entry>
   
   <entry>
     <title>液滴微流控获取单细胞及Drop-seq_tools分析流程</title>
